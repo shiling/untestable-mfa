@@ -8,6 +8,8 @@
   "author": "Tai Shi Ling",
   "license": "MIT",
   "dependencies": {
-    "puppeteer-core": "^22.13.1"
+    "puppeteer-core": "^22.13.1",
+    "selenium-webdriver": "^4.23.0",
+    "totp-generator": "^1.0.0"
   }
 }
