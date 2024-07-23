@@ -66,36 +66,51 @@ await browser.executeScript("window.open()");
 tabs = await browser.getAllWindowHandles();
 await browser.switchTo().window(tabs[2]);
 
-// Step 1: open the email inbox
-console.log("Opening email inbox...")
+// open the email inbox
+const EMAIL_INBOX_URL = `https://inboxkitten.com/inbox/${TEST_EMAIL_USERNAME}`;
+console.log("Opening email inbox: " + EMAIL_INBOX_URL);
+await browser.get(EMAIL_INBOX_URL);
 
+// sleep for 20s, to allow email to arrive
+console.log("Waiting for email to arrive");
+await sleep(20000);
 
-// Step 2: sleep for 20s, to allow email to arrive
-console.log("Waiting for email to arrive...");
+// find the first email that says "Welcome to headquarters"
+console.log("Opening latest 'Welcome to headquarters' email");
+let emailSubject = "Welcome to Headquarters";
+let emailSelector = `(//div[@class='row-subject' and contains(text(), '${emailSubject}')])[1]`
+await click(By.xpath(emailSelector));
 
+// wait for iframe element to appear : //iframe[@id='message-content']
+console.log("Waiting for email body iframe to appear");
+let iframeElement = await waitForElementVisible(By.xpath("//iframe[@id='message-content']"));
+console.log("iframeElement: ", iframeElement);
 
-// Step 3: find the first email that says "Welcome to Headquarters"
-console.log("Opening email...");
+// switch into the iframe
+console.log("Switching to email body iframe");
+await browser.switchTo().frame(iframeElement);
 
+// wait for the text "Your verification code is" to appear
+console.log("Waiting for email body to load");
+await waitUntilTextIsVisible("Your verification code is");
 
-// Step 4: wait for iframe element to appear : //iframe[@id='message-content']
-console.log("Waiting for email content iframe to be ready...");
+// get the email body
+console.log("Getting email body");
+const emailBody = await browser.findElement(By.xpath("//body")).getText();
+console.log("Email body: ", emailBody);
 
-
-// Step 5: switch into the iframe
-console.log("Switching into the email content iframe...");
-
-
-// Step 6: wait for the text "Your verification code is" to appear
-console.log("Waiting for email body to load...");
-
-
-// Step 7: get the email body
-console.log("Getting email body...");
-
-
-// Step 8: extract the OTP from the email body
-let otp = "123456";
+// extract the OTP from the email body
+console.log("Extracting OTP");
+let otpRegex = /Your verification code is: (\d+)/;
+let matches = emailBody.match(otpRegex);
+let otp = "";
+if(matches){
+	otp = matches[1];
+	console.log("OTP: ", otp);
+}else{
+	console.log("OTP not found");
+	exit();
+}
 
 // -------------------------------------
 // PART 3: Complete login

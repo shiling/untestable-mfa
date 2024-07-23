@@ -137,7 +137,7 @@ async function sleep(ms){
 async function click(selector){
 	try{
 		// wait for element to appear, up to 15 seconds
-		await browser.wait(until.elementLocated(selector, 15000));
+		await browser.wait(until.elementLocated(selector), 15000);
 		// wait for element to be visible, up to 5 seconds
 		await browser.wait(until.elementIsVisible(browser.findElement(selector)), 5000);
 		// click the element
@@ -150,7 +150,7 @@ async function click(selector){
 async function fill(selector, value){
 	try{
 		// wait for element to be located, up to 15 seconds
-		await browser.wait(until.elementLocated(selector, 15000));
+		await browser.wait(until.elementLocated(selector), 15000);
 		// wait for element to be visible, up to 5 seconds
 		await browser.wait(until.elementIsVisible(browser.findElement(selector)), 5000);
 		// fill the element
