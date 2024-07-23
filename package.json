@@ -1,0 +1,13 @@
+{
+  "name": "untestable-mfa",
+  "version": "1.0.0",
+  "description": "Untestable: Multi-Factor Authentication!",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "author": "Tai Shi Ling",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer-core": "^22.13.1"
+  }
+}
