@@ -96,6 +96,7 @@ console.log("Getting email body...");
 
 // Step 8: extract the OTP from the email body
 let otp = "123456";
+exit(); // uncomment to continue
 
 // -------------------------------------
 // PART 3: Complete login
