@@ -8,6 +8,8 @@ This project shows you working examples of how to solve MFA logins that involve 
 
 2. Start Selenium or Chromedriver, and update the `chromeDriverUrl` in the scripts accordingly.
 
-3. Run `node src/email-otp-example.js` to run the Email OTP example.
+3. Run `node src/email-otp-example-solution.js` to run the Email OTP example.
 
-4. Run `node src/totp-example.js` to run the time-based OTP example.
+4. Run `node src/totp-example-solution.js` to run the time-based OTP example.
+
+5. Run `node src/sms-otp-example.js` to run the SMS OTP example. Note that you'll need to have an Mailosaur account and configure your API key and server ID in the config file mailosaur.config.js
